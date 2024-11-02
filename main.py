@@ -1,20 +1,17 @@
-import cv2 
-import mediapipe as mp 
+import cv2
+import mediapipe as mp
 import time
+import controller as cnt 
 
 time.sleep(2.0)
 current_key_pressed = set() 
 
-mp_draw=mp.solutions.drawing_utils
 mp_hand=mp.solutions.hands
-# mp_drawing_styles = mp.solutions.drawing_styles
+mp_draw=mp.solutions.drawing_utils
+mp_drawing_styles = mp.solutions.drawing_styles
 
 
 tipIds=[4,8,12,16,20]
-# tipIds=[8,7,6,5,0]
-# tipIds=[12,11,10,9]
-# tipIds=[16,15,14,13]
-# tipIds=[20,19,18,17,0]
 
 
 video=cv2.VideoCapture(0)
@@ -48,34 +45,31 @@ with mp_hand.Hands(min_detection_confidence=0.5,
                         fingers.append(1)
                     else:
                         fingers.append(0)
-                total=fingers.count(1)#fiinger count 
+                total=fingers.count(1)
+                cnt.led(total)
                 if total==0:
-                   cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                   cv2.putText(image, "0", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
-                    (255,0,0), 5)
-                # cv2.putText(image, "no finger", (100, 375), cv2.FONT_HERSHEY_SIMPLEX, 2,
-                #     (235, 0, 0), 5)
+                   cv2.rectangle(image, (20, 300), (500, 450), (0,255,0),cv2.FILLED)
+                   cv2.putText(image, "NODEVICESON", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
+                    (255, 0, 0), 5)              
                 elif total==1:
-                     cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                     cv2.putText(image, "1", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
-                        (255,0,0), 5)
-                # cv2.putText(image, "HI", (100, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
-                #     (235, 0, 0), 5)    
+                     cv2.rectangle(image, (20, 300), (300, 450), (0,255,0),cv2.FILLED)
+                     cv2.putText(image, "LED", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
+                        (255,0,0), 5) 
                 elif total==2:
-                     cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                     cv2.putText(image, "2", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
+                     cv2.rectangle(image, (20, 300), (300, 450), (0,255,0),cv2.FILLED)
+                     cv2.putText(image, "FAN", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
                         (255,0,0), 5)
                 elif total==3:
-                     cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                     cv2.putText(image, "3", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
+                     cv2.rectangle(image, (20, 300), (300, 450), (0,255,0),cv2.FILLED)
+                     cv2.putText(image, "BUZZER", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
                         (255,0,0), 5)   
                 elif total==4:
-                     cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                     cv2.putText(image, "4", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
+                     cv2.rectangle(image, (20, 300), (400, 450), (0,255,0),cv2.FILLED)
+                     cv2.putText(image, "WATERPUMP", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
                         (255,0,0), 5)  
                 elif total==5:
-                     cv2.rectangle(image, (20, 300), (170, 450), (0,255,0),cv2.FILLED)
-                     cv2.putText(image, "5", (60, 375), cv2.FONT_HERSHEY_DUPLEX, 2,
+                     cv2.rectangle(image, (20, 300), (500, 450), (0,255,0),cv2.FILLED)
+                     cv2.putText(image, "ALLDEVICESON", (60, 400), cv2.FONT_HERSHEY_DUPLEX, 2,
                         (255,0,0), 5)          
                 
         cv2.imshow("Frame",image) 
